@@ -10,14 +10,9 @@ app.get("/", function (request, response) {
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
-  try{
-    const todos = await Todo.findAll()
-    return response.send(todos)
-    }catch(error){
-      console.log(error)
-      return response.status(422).json(error)
-
-    }
+  const todos = await Todo.findAll()
+  return response.send(todos)
+    
 });
 
 app.get("/todos/:id", async function (request, response) {
@@ -53,14 +48,10 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 
 app.delete("/todos/:id", async function (request, response) {
   console.log("We have to delete a Todo with ID: ", request.params.id);
-  try{
-    const deletedTodo = await Todo.destroy({where:{id:request.params.id}})
-    reponse.send(deletedTodo ? true : false)
-    }catch(error){
-      console.log(error)
-      return response.status(422).json(error);
 
-    }
+  const deletedTodo = await Todo.destroy({where:{id:request.params.id}})
+  reponse.send(deletedTodo ? true : false)
+    
 });
 
 module.exports = app;
