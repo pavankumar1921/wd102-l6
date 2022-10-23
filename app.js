@@ -50,7 +50,7 @@ app.delete("/todos/:id", async function (request, response) {
   console.log("We have to delete a Todo with ID: ", request.params.id);
 
   const deletedTodo = await Todo.destroy({where:{id:request.params.id}})
-  reponse.send(deletedTodo ? true : false)
+  return response.send(deletedTodo ? true : false)
     
 });
 
